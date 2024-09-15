@@ -34,6 +34,12 @@ func callrestarter(slp bool) {
 	_ = syscall.Exec(self, os.Args, os.Environ())
 }
 
+func reverseNewsItems(items []newsItem) {
+	for i, j := 0, len(items)-1; i < j; i, j = i+1, j-1 {
+		items[i], items[j] = items[j], items[i]
+	}
+}
+
 func getJSONResponse() []newsItem {
 	resp, err := http.Get("https://igpdl.vercel.app/news?key=" + os.Getenv("KEY"))
 	if err != nil {
@@ -60,6 +66,7 @@ func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 			if db.SIsMember(cotx, "newsold", data[0].Title).Val() {
 				continue
 			}
+			reverseNewsItems(data)
 			var newnews []string
 			for _, x := range data {
 				if db.SIsMember(cotx, "newsold", x.Title).Val() {
