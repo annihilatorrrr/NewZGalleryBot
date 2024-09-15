@@ -55,18 +55,25 @@ func getJSONResponse() []newsItem {
 
 func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 	for {
-		var newnews []string
-		for _, x := range getJSONResponse() {
-			if db.SIsMember(cotx, "newsold", x).Val() {
-				break
-			}
-			newnews = append(newnews, x.Title)
-			_, _ = b.SendMessage(-1002493739515, fmt.Sprintf("<b>Title:</b> %s\n<b>Description:</b> %s\n<b>Link:</b> %s\n\n<b>©️ @Memers_Gallery</b>", x.Title, x.Description, x.Link), &gotgbot.SendMessageOpts{ParseMode: "html"})
-			time.Sleep(time.Second)
-		}
-		db.Del(cotx, "newsold")
-		db.SAdd(cotx, "newsold", newnews)
 		time.Sleep(time.Minute)
+		if data := getJSONResponse(); len(data) > 0 {
+			if db.SIsMember(cotx, "newsold", data[0].Title).Val() {
+				continue
+			}
+			var newnews []string
+			for _, x := range data {
+				if db.SIsMember(cotx, "newsold", x.Title).Val() {
+					break
+				}
+				newnews = append(newnews, x.Title)
+				_, _ = b.SendMessage(-1002493739515, fmt.Sprintf("<b>Title:</b> %s\n<b>Description:</b> %s\n<b>Link:</b> %s\n\n<b>©️ @Memers_Gallery</b>", x.Title, x.Description, x.Link), &gotgbot.SendMessageOpts{ParseMode: "html"})
+				time.Sleep(time.Second)
+			}
+			if len(newnews) > 0 {
+				db.Del(cotx, "newsold")
+				db.SAdd(cotx, "newsold", newnews)
+			}
+		}
 	}
 }
 
