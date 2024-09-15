@@ -66,13 +66,20 @@ func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 			if db.SIsMember(cotx, "newsold", data[0].Title).Val() {
 				continue
 			}
-			reverseNewsItems(data)
-			var newnews []string
+			var (
+				newnews []string
+				counter int
+			)
 			for _, x := range data {
 				if db.SIsMember(cotx, "newsold", x.Title).Val() {
 					break
 				}
+				counter++
 				newnews = append(newnews, x.Title)
+			}
+			data = data[:counter]
+			reverseNewsItems(data)
+			for _, x := range data {
 				_, _ = b.SendMessage(-1002493739515, fmt.Sprintf("<b>Title:</b> %s\n<b>Description:</b> %s\n<b>Link:</b> %s\n\n<b>©️ @Memers_Gallery</b>", x.Title, x.Description, x.Link), &gotgbot.SendMessageOpts{ParseMode: "html"})
 				time.Sleep(time.Second)
 			}
