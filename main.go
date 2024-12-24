@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/PaulSonOfLars/gotgbot/v2"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/redis/go-redis/v9"
 	"io"
 	"log"
@@ -22,6 +22,54 @@ type newsItem struct {
 	Title       string `json:"title"`
 	Link        string `json:"link"`
 	Description string `json:"description"`
+}
+
+func fetchNDTVNews() []newsItem {
+	req, err := http.NewRequest("GET", "https://www.ndtv.com/latest#pfrom=home-ndtv_nav_wap", nil)
+	if err != nil {
+		return []newsItem{}
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0")
+	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
+	req.Header.Set("Accept-Encoding", "")
+	req.Header.Set("Referer", "https://www.ndtv.com/")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Priority", "u=0, i")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return []newsItem{}
+	}
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
+	if resp.StatusCode != http.StatusOK {
+		return []newsItem{}
+	}
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return []newsItem{}
+	}
+	var news []newsItem
+	doc.Find("div").Each(func(i int, s *goquery.Selection) {
+		if class, _ := s.Attr("class"); class == "news_Itm" {
+			title := s.Find("a").Text()
+			link, _ := s.Find("a").Attr("href")
+			description := s.Find(".newsCont").Text()
+			if title != "" && link != "" {
+				news = append(news, newsItem{
+					Title:       title,
+					Link:        link,
+					Description: description,
+				})
+			}
+		}
+	})
+	if len(news) == 0 {
+		return []newsItem{}
+	}
+	return news
 }
 
 func callrestarter(slp bool) {
@@ -40,25 +88,6 @@ func reverseNewsItems(items []newsItem) {
 	for i, j := 0, len(items)-1; i < j; i, j = i+1, j-1 {
 		items[i], items[j] = items[j], items[i]
 	}
-}
-
-func getJSONResponse() []newsItem {
-	resp, err := http.Get("https://igpdl.vercel.app/news?key=" + os.Getenv("KEY"))
-	if err != nil {
-		return []newsItem{}
-	}
-	defer func(Body io.ReadCloser) {
-		_ = Body.Close()
-	}(resp.Body)
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return []newsItem{}
-	}
-	var jdata []newsItem
-	if err = json.Unmarshal(body, &jdata); err != nil {
-		return []newsItem{}
-	}
-	return jdata
 }
 
 func waitAndSend(b *gotgbot.Bot, meth string, params map[string]string, data map[string]gotgbot.FileReader) bool {
@@ -90,7 +119,7 @@ func waitAndSend(b *gotgbot.Bot, meth string, params map[string]string, data map
 func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 	for {
 		time.Sleep(time.Minute)
-		if data := getJSONResponse(); len(data) > 0 {
+		if data := fetchNDTVNews(); len(data) > 0 {
 			if db.SIsMember(cotx, "newsold", data[0].Title).Val() {
 				continue
 			}
