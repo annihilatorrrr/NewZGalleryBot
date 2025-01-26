@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"syscall"
 	"time"
 )
@@ -52,18 +53,20 @@ func fetchNDTVNews() []newsItem {
 		return []newsItem{}
 	}
 	var news []newsItem
-	doc.Find("div").Each(func(i int, s *goquery.Selection) {
-		if class, _ := s.Attr("class"); class == "news_Itm" {
-			title := s.Find("a").Text()
-			link, _ := s.Find("a").Attr("href")
-			description := s.Find(".newsCont").Text()
-			if title != "" && link != "" {
-				news = append(news, newsItem{
-					Title:       title,
-					Link:        link,
-					Description: description,
-				})
-			}
+	doc.Find("ul.NwsLstPg_ul li.NwsLstPg-a-li:not(.adBg)").Each(func(i int, s *goquery.Selection) {
+		link := s.Find("a.NwsLstPg_ttl-lnk")
+		href, exists := link.Attr("href")
+		if !exists {
+			return
+		}
+		text := strings.TrimSpace(link.Text())
+		pText := strings.TrimSpace(s.Find("p.NwsLstPg_txt.txt_tct.txt_tct-three").Text())
+		if text != "" && href != "" && pText != "" {
+			news = append(news, newsItem{
+				Title:       text,
+				Link:        href,
+				Description: pText,
+			})
 		}
 	})
 	if len(news) == 0 {
