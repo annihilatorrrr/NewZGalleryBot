@@ -87,12 +87,6 @@ func callrestarter(slp bool) {
 	_ = syscall.Exec(self, os.Args, os.Environ())
 }
 
-func reverseNewsItems(items []newsItem) {
-	for i, j := 0, len(items)-1; i < j; i, j = i+1, j-1 {
-		items[i], items[j] = items[j], items[i]
-	}
-}
-
 func waitAndSend(b *gotgbot.Bot, meth string, params map[string]string, data map[string]gotgbot.FileReader) bool {
 	if b.BotClient == nil {
 		return false
@@ -138,7 +132,6 @@ func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 				newnews = append(newnews, x.Title)
 			}
 			data = data[:counter]
-			reverseNewsItems(data)
 			v := map[string]string{}
 			v["chat_id"] = strconv.FormatInt(-1002493739515, 10)
 			v["parse_mode"] = "html"
