@@ -1,4 +1,4 @@
-FROM golang:1.23.5-alpine3.21 as builder
+FROM golang:1.24rc2-alpine3.21 as builder
 WORKDIR /NewZGalleryBot
 RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps ca-certificates
 COPY . .
