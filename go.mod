@@ -4,7 +4,7 @@ go 1.23.5
 
 require (
 	github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.31
-	github.com/PuerkitoBio/goquery v1.10.1
+	github.com/PuerkitoBio/goquery v1.10.2
 	github.com/redis/go-redis/v9 v9.7.0
 )
 
