@@ -1,8 +1,8 @@
-FROM golang:1.24.1-alpine3.21 as builder
+FROM golang:1.24.1-alpine3.21 AS builder
 WORKDIR /NewZGalleryBot
-RUN apk update && apk upgrade --available && sync && apk add --no-cache --virtual .build-deps ca-certificates
+RUN apk add --no-cache ca-certificates
 COPY . .
-RUN go build -ldflags="-w -s" .
+RUN go build -trimpath -ldflags="-w -s" .
 FROM scratch
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /NewZGalleryBot/NewZGalleryBot /NewZGalleryBot
