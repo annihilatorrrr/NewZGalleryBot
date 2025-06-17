@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"github.com/PaulSonOfLars/gotgbot/v2"
 	"github.com/PaulSonOfLars/gotgbot/v2/ext"
@@ -12,7 +11,6 @@ import (
 	"github.com/redis/go-redis/v9"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 	"syscall"
 	"time"
@@ -78,32 +76,6 @@ func callrestarter(slp bool) {
 	_ = syscall.Exec(self, os.Args, os.Environ())
 }
 
-func waitAndSend(b *gotgbot.Bot, meth string, params map[string]string, data map[string]gotgbot.FileReader) bool {
-	if b.BotClient == nil {
-		return false
-	}
-	var waitFor int64
-	for {
-		if waitFor != 0 {
-			time.Sleep(time.Duration(waitFor) * time.Second)
-		}
-		if _, err := b.Request(meth, params, data, &gotgbot.RequestOpts{Timeout: time.Minute}); err != nil {
-			var tgErr *gotgbot.TelegramError
-			if errors.As(err, &tgErr) {
-				if tgErr.Code != 429 || tgErr.ResponseParams.RetryAfter == 0 {
-					break
-				}
-				waitFor = tgErr.ResponseParams.RetryAfter + 1
-			} else {
-				break
-			}
-		} else {
-			return true
-		}
-	}
-	return false
-}
-
 func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 	for {
 		time.Sleep(time.Minute)
@@ -123,12 +95,14 @@ func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 				newnews = append(newnews, x.Title)
 			}
 			data = data[:counter]
-			v := map[string]string{}
-			v["chat_id"] = strconv.FormatInt(-1002493739515, 10)
-			v["parse_mode"] = "html"
 			for _, x := range data {
-				v["text"] = fmt.Sprintf("<b>Title:</b> %s\n<b>Description:</b> %s\n<b>Link:</b> %s\n\n<b>©️ @Memers_Gallery</b>", x.Title, x.Description, x.Link)
-				waitAndSend(b, "sendMessage", v, nil)
+				_, _ = b.SendMessage(-1002493739515, fmt.Sprintf("<b>Title:</b> %s\n<b>Description:</b> %s\n<b>Link:</b> %s\n\n<b>©️ @Memers_Gallery</b>", x.Title, x.Description, x.Link), &gotgbot.SendMessageOpts{
+					ParseMode: "html",
+					RequestOpts: &gotgbot.RequestOpts{
+						Timeout: time.Minute,
+					},
+				})
+				time.Sleep(time.Minute)
 			}
 			if len(newnews) > 0 {
 				db.Del(cotx, "newsold")
