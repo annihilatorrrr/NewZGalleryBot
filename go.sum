@@ -12,8 +12,8 @@ github.com/Danny-Dasilva/CycleTLS/cycletls v1.0.26 h1:6fexoGmvzoXMSk14BZ0AirapVm
 github.com/Danny-Dasilva/CycleTLS/cycletls v1.0.26/go.mod h1:QFi/EVO7qqru3Ftxz1LR+96jIc91Tifv0DnskF/gWQ8=
 github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1 h1:/lqhaiz7xdPr6kuaW1tQ/8DdpWdxkdyd9W/6EHz4oRw=
 github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1/go.mod h1:Hvab/V/YKCDXsEpKYKHjAXH5IFOmoq9FsfxjztEqvDc=
-github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.32 h1:+YzI72wzNTcaPUDVcSxeYQdHfvEk8mPGZh/yTk5kkRg=
-github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.32/go.mod h1:BSzsfjlE0wakLw2/U1FtO8rdVt+Z+4VyoGo/YcGD9QQ=
+github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.33 h1:uyVD1QSS7ftd/DE2x5OFRx4PYyhq9n4edvFJRExVWVk=
+github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.33/go.mod h1:BSzsfjlE0wakLw2/U1FtO8rdVt+Z+4VyoGo/YcGD9QQ=
 github.com/PuerkitoBio/goquery v1.10.3 h1:pFYcNSqHxBD06Fpj/KsbStFRsgRATgnf3LeXiUkhzPo=
 github.com/PuerkitoBio/goquery v1.10.3/go.mod h1:tMUX0zDMHXYlAQk6p35XxQMqMweEKB7iK7iLNd4RH4Y=
 github.com/RomainMichau/cloudscraper_go v0.4.1 h1:np8XbbkXXTPK+KOqtO49FYiAD34bYCL2Ndi3Sefw40M=
