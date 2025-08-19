@@ -24,9 +24,10 @@ type newsItem struct {
 	Description string `json:"description"`
 }
 
+var cfclient *cloudscraper.CloudScrapper
+
 func fetchNDTVNews() []newsItem {
 	var news []newsItem
-	cfclient, _ := cloudscraper.Init(false, false)
 	mresp, err := cfclient.Get("https://www.ndtv.com/latest#pfrom=home-ndtv_nav_wap", map[string]string{
 		"Content-Type":    "application/x-www-form-urlencoded; charset=UTF-8",
 		"Referer":         "https://www.ndtv.com/",
@@ -192,6 +193,7 @@ func main() {
 	); err != nil {
 		log.Fatalf(err.Error())
 	}
+	cfclient, _ = cloudscraper.Init(false, false)
 	go worker(b, db, context.Background())
 	go callrestarter(true)
 	log.Println(b.User.FirstName, "has been started!")
