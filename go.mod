@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	github.com/Danny-Dasilva/CycleTLS/cycletls v1.0.27 // indirect
+	github.com/Danny-Dasilva/CycleTLS/cycletls v1.0.29 // indirect
 	github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/andybalholm/brotli v1.2.0 // indirect
