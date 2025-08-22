@@ -24,7 +24,7 @@ require (
 	github.com/google/pprof v0.0.0-20250630185457-6e76a2b096b5 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
-	github.com/onsi/ginkgo/v2 v2.24.0 // indirect
+	github.com/onsi/ginkgo/v2 v2.25.1 // indirect
 	github.com/quic-go/qpack v0.5.1 // indirect
 	github.com/quic-go/quic-go v0.54.0 // indirect
 	github.com/refraction-networking/uquic v0.0.6 // indirect
