@@ -26,7 +26,7 @@ require (
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/onsi/ginkgo/v2 v2.25.1 // indirect
 	github.com/quic-go/qpack v0.5.1 // indirect
-	github.com/quic-go/quic-go v0.53.0 // indirect
+	github.com/quic-go/quic-go v0.54.0 // indirect
 	github.com/refraction-networking/uquic v0.0.6 // indirect
 	github.com/refraction-networking/utls v1.8.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
