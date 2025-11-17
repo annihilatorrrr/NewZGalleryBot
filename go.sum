@@ -12,8 +12,8 @@ github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1 h1:/lqhaiz7xdP
 github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1/go.mod h1:Hvab/V/YKCDXsEpKYKHjAXH5IFOmoq9FsfxjztEqvDc=
 github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.33 h1:uyVD1QSS7ftd/DE2x5OFRx4PYyhq9n4edvFJRExVWVk=
 github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.33/go.mod h1:BSzsfjlE0wakLw2/U1FtO8rdVt+Z+4VyoGo/YcGD9QQ=
-github.com/PuerkitoBio/goquery v1.10.3 h1:pFYcNSqHxBD06Fpj/KsbStFRsgRATgnf3LeXiUkhzPo=
-github.com/PuerkitoBio/goquery v1.10.3/go.mod h1:tMUX0zDMHXYlAQk6p35XxQMqMweEKB7iK7iLNd4RH4Y=
+github.com/PuerkitoBio/goquery v1.11.0 h1:jZ7pwMQXIITcUXNH83LLk+txlaEy6NVOfTuP43xxfqw=
+github.com/PuerkitoBio/goquery v1.11.0/go.mod h1:wQHgxUOU3JGuj3oD/QFfxUdlzW6xPHfqyHre6VMY4DQ=
 github.com/RomainMichau/CycleTLS/cycletls v1.0.30-compatible h1:Ng3AzdyM2cYbdj7IW93SmAW4oPJ3OW/O3Fp3lVsTOY4=
 github.com/RomainMichau/CycleTLS/cycletls v1.0.30-compatible/go.mod h1:Mr2Q1hFWweAdJxd2RVA6nm3uIZ0JQ4WeCehtNp7FEn8=
 github.com/RomainMichau/cloudscraper_go v0.4.2 h1:bHy7AN6pn4Ss6AgsDDTswVNKgw02sbrr/E92KcBvYFw=

@@ -4,7 +4,7 @@ go 1.25.3
 
 require (
 	github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.33
-	github.com/PuerkitoBio/goquery v1.10.3
+	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/RomainMichau/cloudscraper_go v0.4.2
 	github.com/redis/go-redis/v9 v9.16.0
 )
