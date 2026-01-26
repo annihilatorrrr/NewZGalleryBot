@@ -6,7 +6,7 @@ require (
 	github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.33
 	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/RomainMichau/cloudscraper_go v0.4.2
-	github.com/redis/go-redis/v9 v9.17.2
+	github.com/redis/go-redis/v9 v9.17.3
 )
 
 require (
