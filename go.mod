@@ -6,7 +6,7 @@ require (
 	github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.34
 	github.com/PuerkitoBio/goquery v1.12.0
 	github.com/RomainMichau/cloudscraper_go v0.4.2
-	github.com/redis/go-redis/v9 v9.18.0
+	github.com/redis/go-redis/v9 v9.19.0
 )
 
 require (
@@ -15,7 +15,6 @@ require (
 	github.com/andybalholm/brotli v1.2.1 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/klauspost/compress v1.18.5 // indirect
 	github.com/refraction-networking/utls v1.8.2 // indirect
