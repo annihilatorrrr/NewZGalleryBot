@@ -4,18 +4,19 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/PaulSonOfLars/gotgbot/v2"
-	"github.com/PaulSonOfLars/gotgbot/v2/ext"
-	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
-	"github.com/PuerkitoBio/goquery"
-	"github.com/RomainMichau/cloudscraper_go/cloudscraper"
-	"github.com/redis/go-redis/v9"
 	"log"
 	"os"
 	"strconv"
 	"strings"
 	"syscall"
 	"time"
+
+	"github.com/PaulSonOfLars/gotgbot/v2"
+	"github.com/PaulSonOfLars/gotgbot/v2/ext"
+	"github.com/PaulSonOfLars/gotgbot/v2/ext/handlers"
+	"github.com/PuerkitoBio/goquery"
+	"github.com/RomainMichau/cloudscraper_go/cloudscraper"
+	"github.com/redis/go-redis/v9"
 )
 
 type newsItem struct {
@@ -89,8 +90,7 @@ func waitAndSend(b *gotgbot.Bot, meth string, params map[string]any) bool {
 			time.Sleep(time.Duration(waitFor) * time.Second)
 		}
 		if _, err := b.Request(meth, params, &gotgbot.RequestOpts{Timeout: time.Minute}); err != nil {
-			var tgErr *gotgbot.TelegramError
-			if errors.As(err, &tgErr) {
+			if tgErr, ok := errors.AsType[*gotgbot.TelegramError](err); ok {
 				if (tgErr.Code != 420 && tgErr.Code != 429) || tgErr.ResponseParams.RetryAfter == 0 {
 					break
 				}
@@ -129,7 +129,7 @@ func worker(b *gotgbot.Bot, db *redis.Client, cotx context.Context) {
 			v["parse_mode"] = "html"
 			for _, x := range data {
 				v["text"] = fmt.Sprintf("<b>Title:</b> %s\n<b>Description:</b> %s\n<b>Link:</b> %s\n\n<b>©️ @Memers_Gallery</b>", x.Title, x.Description, x.Link)
-				waitAndSend(b, "sendMessage", v, nil)
+				waitAndSend(b, "sendMessage", v)
 			}
 			if len(newnews) > 0 {
 				db.Del(cotx, "newsold")

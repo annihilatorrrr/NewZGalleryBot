@@ -1,6 +1,6 @@
 module NewZGalleryBot
 
-go 1.25.3
+go 1.26.3
 
 require (
 	github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.35
@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	github.com/Danny-Dasilva/fhttp v0.0.0-20240217042913-eeeb0b347ce1 // indirect
+	github.com/Danny-Dasilva/fhttp v0.0.0-20260106165651-41258808b131 // indirect
 	github.com/RomainMichau/CycleTLS/cycletls v1.0.30-compatible // indirect
 	github.com/andybalholm/brotli v1.2.1 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
