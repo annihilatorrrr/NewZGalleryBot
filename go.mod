@@ -12,7 +12,7 @@ require (
 require (
 	github.com/Danny-Dasilva/fhttp v0.0.0-20260106165651-41258808b131 // indirect
 	github.com/RomainMichau/CycleTLS/cycletls v1.0.30-compatible // indirect
-	github.com/andybalholm/brotli v1.2.1 // indirect
+	github.com/andybalholm/brotli v1.2.2 // indirect
 	github.com/andybalholm/cascadia v1.3.4 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
