@@ -3,7 +3,7 @@ module NewZGalleryBot
 go 1.26.3
 
 require (
-	github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.35
+	github.com/PaulSonOfLars/gotgbot/v2 v2.0.0-rc.36
 	github.com/PuerkitoBio/goquery v1.12.0
 	github.com/RomainMichau/cloudscraper_go v0.4.2
 	github.com/redis/go-redis/v9 v9.21.0
