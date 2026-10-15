@@ -144,10 +144,10 @@ func main() {
 	if token == "" {
 		token = ""
 	}
-	wurl := os.Getenv("URL")
+	/* wurl := os.Getenv("URL")
 	if wurl == "" {
 		log.Fatal("No webhook url was found!")
-	}
+	} */
 	port := os.Getenv("PORT")
 	if port == "" {
 		log.Fatal("No port was found to bind!")
@@ -176,14 +176,14 @@ func main() {
 		_, _ = ctx.EffectiveMessage.Reply(b, "I'm alive!\nBy @Annihilatorrrr", nil)
 		return ext.EndGroups
 	}))
-	if _, err = b.SetWebhook(wurl+token, &gotgbot.SetWebhookOpts{
+	/* if _, err = b.SetWebhook(wurl+token, &gotgbot.SetWebhookOpts{
 		MaxConnections:     40,
 		DropPendingUpdates: false,
 		AllowedUpdates:     []string{"message"},
 		SecretToken:        "xyzzz",
 	}); err != nil {
 		log.Fatal(err.Error())
-	}
+	} */
 	if err = updater.StartWebhook(b,
 		token,
 		ext.WebhookOpts{
